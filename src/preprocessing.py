@@ -37,8 +37,12 @@ def run_pipeline_1(raw_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series, Colum
             lambda x: x if x in coverage_nats else "other"
         )
 
-    y = df[TARGET]
-    X = df.drop(columns=[TARGET])
+    if TARGET in df.columns:
+        y = df[TARGET]
+        X = df.drop(columns=[TARGET])
+    else:
+        y = None
+        X = df
 
     num_features = X.select_dtypes(include=["int64", "float64"]).columns.tolist()
     cat_features = X.select_dtypes(include=["object"]).columns.tolist()
@@ -86,8 +90,12 @@ def run_pipeline_2(raw_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series, Colum
         df["continent"] = df["nationality_name"].apply(get_continent)
         df = df.drop(columns=["nationality_name"])
 
-    y = df[TARGET]
-    X = df.drop(columns=[TARGET])
+    if TARGET in df.columns:
+        y = df[TARGET]
+        X = df.drop(columns=[TARGET])
+    else:
+        y = None
+        X = df
 
     num_features = X.select_dtypes(include=["int64", "float64"]).columns.tolist()
     cat_features = X.select_dtypes(include=["object"]).columns.tolist()

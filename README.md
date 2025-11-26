@@ -21,3 +21,13 @@ We need to build a model to predict football players' wages (`log_wages`) based 
 5.  Save output to `autograder_submission.txt`.
 
 
+## STATUS
+1. The preprocessing pipeline is done. To do preprocessing, run the code below. It returns the features as a numpy array and the target column as a pandas Series.
+```python
+import pandas as pd
+from src.preprocessing import run_pipeline_2
+
+df = pd.read_csv('../football_wages.csv')
+X_processed, y, preprocessor = run_pipeline_2(df)
+
+```
